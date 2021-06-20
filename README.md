@@ -1,2 +1,2 @@
 # hr-resources
-Esempio in Python di un gestore delle risorse umane
+Esempio in Python di una REST API per la gestione delle risorse umane
