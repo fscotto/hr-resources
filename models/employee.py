@@ -68,11 +68,10 @@ class Employee(Person):
             'first_name': self.first_name,
             'last_name': self.last_name,
             'email': self.__email,
-            'hire_date': self.__hire_date,
+            'hire_date': f"{self.__hire_date: %Y-%m-%d}",
             'department': self.__department.to_json() if self.__department is not None else None,
             'job_id': self.__job_id,
-            # FIXME devo gestire meglio i tipi decimali
-            'salary': str(self.__salary),
+            'salary': f"{self.__salary:,.2f}",
             'manager_id': self.__manager_id
         }
 
