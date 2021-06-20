@@ -18,8 +18,8 @@ class Person:
 
 
 class Employee(Person):
-    def __init__(self, employee_id, first_name, last_name, email, phone_number,
-                 hire_date, department, job_id=0, salary=0, manager_id=0):
+    def __init__(self, employee_id: int, first_name: str, last_name: str, email: str, phone_number: str,
+                 hire_date: date, department: Department, job_id: int = 0, salary: float = 0, manager_id: int = 0):
         super().__init__(first_name, last_name)
         self.__employee_id = employee_id
         self.__email = email
@@ -61,6 +61,20 @@ class Employee(Person):
     @property
     def manager_id(self) -> int:
         return self.__manager_id
+
+    def to_json(self):
+        return {
+            'employee_id': self.__employee_id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'email': self.__email,
+            'hire_date': self.__hire_date,
+            'department': self.__department.to_json() if self.__department is not None else None,
+            'job_id': self.__job_id,
+            # FIXME devo gestire meglio i tipi decimali
+            'salary': str(self.__salary),
+            'manager_id': self.__manager_id
+        }
 
     def __str__(self):
         return f"Employee({self.__employee_id}, {self.first_name}, {self.last_name}, " \

@@ -32,6 +32,16 @@ class Location:
     def country_id(self) -> int:
         return self.__country_id
 
+    def to_json(self):
+        return {
+            'location_id': self.__location_id,
+            'street_address': self.__street_address,
+            'postal_code': self.__postal_code,
+            'city': self.__city,
+            'state_province': self.__state_province,
+            'country_id': self.__country_id
+        }
+
     def __str__(self):
         return f"Location({self.__location_id}, {self.__postal_code}, " \
                f"{self.__street_address}, {self.__city}, {self.__state_province}) "

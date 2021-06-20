@@ -19,5 +19,12 @@ class Department:
     def location_id(self) -> Location:
         return self.__location
 
+    def to_json(self):
+        return {
+            'department_id': self.__department_id,
+            'name': self.__name,
+            'location': self.__location.to_json() if self.__location is not None else None
+        }
+
     def __str__(self):
         return f"Department({self.__department_id}, {self.__name}, {self.__location})"
