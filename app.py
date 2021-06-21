@@ -32,7 +32,7 @@ def handle_error(error):
 
 
 @app.get("/employee")
-def employees():
+def all_employees():
     return {"employees": [e.to_json() for e in fetch_employees()]}
 
 
@@ -40,10 +40,10 @@ def __employees_group_by_seniority(departments: List[Department]) -> Dict[str, d
     result = {}
     for department in departments:
         # Per ogni dipartimento ricerco i suoi impiegati
-        employees = fetch_department_employees(department.department_id)
+        department_employees = fetch_department_employees(department.department_id)
 
         # Raggruppo gli impiegati per anni di anzianità
-        employee_group_by_years = itertools.groupby(employees,
+        employee_group_by_years = itertools.groupby(department_employees,
                                                     lambda e: period.relativedelta(date.today(), e.hire_date).years)
 
         result[department.name] = {year: [e.to_json() for e in employees]
