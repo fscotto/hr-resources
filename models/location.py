@@ -32,7 +32,7 @@ class Location:
     def country_id(self) -> int:
         return self.__country_id
 
-    def to_json(self):
+    def __json__(self):
         return {
             'location_id': self.__location_id,
             'street_address': self.__street_address,

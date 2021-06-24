@@ -4,6 +4,7 @@ from typing import List, Dict
 
 from dateutil import relativedelta as period
 from flask import Flask
+from flask_json import FlaskJSON
 
 from db.access import fetch_european_departments, \
     fetch_department_employees, \
@@ -14,6 +15,10 @@ from db.access import fetch_european_departments, \
 from models.department import Department
 
 app = Flask(__name__)
+FlaskJSON(app)
+
+app.config['JSON_DATE_FORMAT'] = '%d/%m/%Y'
+app.config['JSON_USE_ENCODE_METHODS'] = True
 
 
 @app.get("/")
@@ -33,7 +38,7 @@ def handle_error(error):
 
 @app.get("/employee")
 def all_employees():
-    return {"employees": [e.to_json() for e in fetch_employees()]}
+    return {"employees": [e for e in fetch_employees()]}
 
 
 def __employees_group_by_seniority(departments: List[Department]) -> Dict[str, dict]:
@@ -46,7 +51,7 @@ def __employees_group_by_seniority(departments: List[Department]) -> Dict[str, d
         employee_group_by_years = itertools.groupby(department_employees,
                                                     lambda e: period.relativedelta(date.today(), e.hire_date).years)
 
-        result[department.name] = {year: [e.to_json() for e in employees]
+        result[department.name] = {year: [e for e in employees]
                                    for (year, employees) in employee_group_by_years}
 
     return result

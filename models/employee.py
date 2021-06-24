@@ -62,14 +62,14 @@ class Employee(Person):
     def manager_id(self) -> int:
         return self.__manager_id
 
-    def to_json(self):
+    def __json__(self):
         return {
             'employee_id': self.__employee_id,
             'first_name': self.first_name,
             'last_name': self.last_name,
             'email': self.__email,
-            'hire_date': f"{self.__hire_date: %Y-%m-%d}",
-            'department': self.__department.to_json() if self.__department is not None else None,
+            'hire_date': self.__hire_date,
+            'department': self.__department if self.__department is not None else None,
             'job_id': self.__job_id,
             'salary': f"{self.__salary:,.2f}",
             'manager_id': self.__manager_id
