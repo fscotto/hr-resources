@@ -1,0 +1,6 @@
+records~=0.5.3
+psycopg2-binary~=2.9.1
+setuptools~=57.0.0
+python-dateutil~=2.8.1
+Flask~=2.0.1
+Flask-JSON~=0.3.4
